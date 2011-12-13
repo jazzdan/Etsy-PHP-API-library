@@ -34,13 +34,42 @@
             
         }
 
+        function allListingImages($params = array()) {
+          if(!isset($params['listing_id'])){
+                echo "Listing ID required";
+                die();
+          }
+
+          $request = 'listings/' . $params['listing_id'] . '/images';
+          //$request = parent::createURL($params, array('listing_id'));
+          $url = parent::createURL2($request);
+          $result = parent::makeRequest($url);
+          
+          return $result;
+
+        }
+
+        function getListingImage($params = array()) {
+          if(!isset($params['listing_id']) && !isset($params['listing_id'])){
+                echo "Listing ID required and Image ID required";
+                die();
+          }
+
+          $request = 'listings/' . $params['listing_id'] . '/images/' . $params['image_id'];
+          $url = parent::createURL2($request);
+          $result = parent::makeRequest($url);
+
+          return $result;
+
+        }
+
         /* Function allListings
          */        
         function allListings($params = array()) {
             
-            $request = 'listings/all';
+            $request = 'listings/active';
             $request .= parent::createURL($params);
-                       
+            
             $result = parent::makeRequest($request);
             
             return $result;

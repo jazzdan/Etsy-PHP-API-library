@@ -20,8 +20,9 @@
          */
                 
         //Set variable for base_url to etsy api
-        private $base_url = 'http://beta-api.etsy.com/v1/';
-        
+        //private $base_url = 'http://beta-api.etsy.com/v1/';
+        private $base_url = 'http://openapi.etsy.com/v2/';
+
         //Turn cache on off
         private $cache = false;
         
@@ -29,7 +30,7 @@
         private $ecache = null;
         
         //***Etsy key required***
-        private $etsy_key = null;
+        private $etsy_key = null; //TODO: Revert back to me
         
         
         /* This method is included for future building, used right now to 
@@ -135,16 +136,23 @@
          * $deny: array of items to not add to url
          */
         public function createURL($params = array(), $deny = array()){
-            
-            $url =  '?api_key=' . $this->etsy_key;
+          print_r($params);
+          $url =  '?api_key=' . $this->etsy_key;
             foreach($params as $item => $val){
                 if(!in_array($item, $deny)){
                     $url .= '&' . $item . '=' . $val;
                 }
             }
-            
+
             return $url;
             
+        }
+
+        public function createURL2($param = null){
+          $url = $param . '?api_key=' . $this->etsy_key;
+          //print_r($url);
+          return $url;
+
         }
 
         /* Function makeRequest
@@ -161,7 +169,9 @@
             
             //put together full request url
             $request = $this->base_url . $url;            
-            
+
+            //echo "<br/>" . $request;
+
             //create curl request and do not include headers.
             $ch = curl_init(); 
             curl_setopt($ch, CURLOPT_URL, $request); 
