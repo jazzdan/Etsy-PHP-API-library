@@ -42,7 +42,7 @@
 
           $request = 'listings/' . $params['listing_id'] . '/images';
           //$request = parent::createURL($params, array('listing_id'));
-          $url = parent::createURL2($request);
+          $url = parent::createURL2($request); //TODO: Integrate back into old create URL. Note .=
           $result = parent::makeRequest($url);
           
           return $result;

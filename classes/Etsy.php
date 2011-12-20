@@ -13,7 +13,7 @@
          * This is the api key given to you by etsy used to verify your account
          *
          * Optional
-         * base_url = may be set manually, defaults to v1
+         * base_url = may be set manually, defaults to v2
          * cache = turn caching on or off
          * ttl = ammount of time cache should last written in english (ie "+1 hour", "+1 day");
          * tmp_dir = directory to which your cache file can be written must be writable by the server
@@ -30,7 +30,10 @@
         private $ecache = null;
         
         //***Etsy key required***
-        private $etsy_key = null; //TODO: Revert back to me
+        private $etsy_key = '3ex0bjense6v6z1dqvgfsou3'; //TODO: Revert back to me
+
+        //***Etsy oauth consumer secret required here***
+        private $etsy_secret = 'uhdzmd6wxs';
         
         
         /* This method is included for future building, used right now to 
@@ -39,7 +42,6 @@
          
         public function __construct($params = array()){
             
-            var_dump($params['etsy_key']);
             //set options passed in
             if(isset($params['etsy_key'])){
                 $this->etsy_key = $params['etsy_key'];
@@ -58,7 +60,9 @@
             
             if($this->cache){
                 $this->ecache = new EtsyCache($params);
-            }    
+            }
+
+            $oauth = new OAuth($etsy_key, $etsy_secret);
         }
         
         /* Function request

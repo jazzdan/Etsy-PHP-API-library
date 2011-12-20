@@ -18,8 +18,9 @@
          */
         function topCategories($params = array()) {
             
-            $request = 'categories';
+            $request = 'taxonomy/categories';
             $request .= parent::createURL($params);
+            print_r($request);
             
             $result = parent::makeRequest($request);
             
@@ -30,6 +31,7 @@
         
         /* Function childCategories
          * required: $params['category']
+         * TODO: Broken
          */
         function childCategories($params = array()) {
             
